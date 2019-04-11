@@ -3,7 +3,7 @@ const gameOfLife = require('../life.js');
 
 describe('Application', () => {
 
-  it('Provided example', () => {
+  it('Provided example', (done) => {
       const provInput = [
           [0,1,0,0,0],
           [1,0,0,1,1],
@@ -19,8 +19,9 @@ describe('Application', () => {
           [0,0,0,0,0]
       ];
     assert.deepEqual(gameOfLife.getNextGen(provInput), provOutput);
+    done();
   })
-  it('All 0', () => {
+  it('All 0', (done) => {
       const zeroInput = [
           [0,0,0,0],
           [0,0,0,0],
@@ -34,8 +35,9 @@ describe('Application', () => {
           [0,0,0,0]
       ];
     assert.deepEqual(gameOfLife.getNextGen(zeroInput), zeroOutput);
+    done();
   })
-  it('All 1', () => {
+  it('All 1', (done) => {
       const oneInput = [
           [1,1,1,1],
           [1,1,1,1],
@@ -49,13 +51,15 @@ describe('Application', () => {
           [1,0,0,1]
       ];
     assert.deepEqual(gameOfLife.getNextGen(oneInput), oneOutput);
+    done();
   })
-  it('Single-element input', () => {
+  it('Single-element input', (done) => {
       const singleInput = [1];
       const singleOutput = null;
     assert.deepEqual(gameOfLife.getNextGen(singleInput), singleOutput);
+    done();
   })
-  it('Non-rectangular input', () => {
+  it('Non-rectangular input', (done) => {
       const nonRectInput = [
           [1,0,0],
           [1,1],
@@ -63,8 +67,9 @@ describe('Application', () => {
       ];
       const nonRectOutput = null;
     assert.deepEqual(gameOfLife.getNextGen(nonRectInput), nonRectOutput);
+    done();
   })
-  it('Integers input other than 1', () => {
+  it('Integers input other than 1', (done) => {
       const badIntInput = [
           [0,1,2],
           [3,4,5],
@@ -72,8 +77,9 @@ describe('Application', () => {
       ];
       const badIntOutput = null;
     assert.deepEqual(gameOfLife.getNextGen(badIntInput), badIntOutput);
+    done();
   })
-  it('Non-number inputs', () => {
+  it('Non-number inputs', (done) => {
       const nonNumInput = [
           ["thing1", "thing2", 3],
           [4, "thing5", "thing6"],
@@ -81,5 +87,6 @@ describe('Application', () => {
       ];
       const nonNumOutput = null;
     assert.deepEqual(gameOfLife.getNextGen(nonNumInput), nonNumOutput);
+    done();
   })
 });

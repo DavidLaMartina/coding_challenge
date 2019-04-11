@@ -1,6 +1,6 @@
 /*
 * i3logix Code Challenge
-* 
+*
 * Please refer to the README.md for challenge questions and complete your challenge below.
 */
 
@@ -15,7 +15,7 @@ function getNextGen(board,              // 2d array of 1s and 0s
     if (!isBoardValid(board)) return null;
     var numRows = board.length;
     var numCols = board[0].length;
- 
+
     // Pad original board to avoid bad array referencing
     var paddedBoard = padBoard(board, reach);
     var newBoard = [];
@@ -28,12 +28,13 @@ function getNextGen(board,              // 2d array of 1s and 0s
         var kernel = createKernel(paddedBoard, row, reach, reach);
         for (let col = reach; col < numCols + reach; col++){
             neighborTotal = totalKernel(paddedBoard, kernel, row, col);
-            if (neighborTotal < minNeighbors || neighborTotal > maxNeighbors)
+            if (neighborTotal < minNeighbors || neighborTotal > maxNeighbors){
                 newRow.push(0);
-            else if (neighborTotal === reproduceAt)
+            }else if (neighborTotal === reproduceAt){
                 newRow.push(1);
-            else
+            }else{
                 newRow.push(paddedBoard[row][col]);
+            }
             advanceKernel(paddedBoard, kernel, row, col, reach);
         }
         newBoard.push(newRow);
@@ -43,12 +44,16 @@ function getNextGen(board,              // 2d array of 1s and 0s
 
 function isBoardValid(board){
 // Is board rectangular single-nested array with all 0s and 1s?
-    if (!Array.isArray(board)) return false;
+    if (!Array.isArray(board)){
+      return false;
+    }
     if (board.some( function(outEle){
-        if (!Array.isArray(outEle) || outEle.length !== board[0].length)
+        if (!Array.isArray(outEle) || outEle.length !== board[0].length){
             return true;
-        if (outEle.some( inEle => inEle !== 0 && inEle !== 1 ? true : false))
+        }
+        if (outEle.some( inEle => inEle !== 0 && inEle !== 1 ? true : false)){
             return true;
+        }
     }))
         return false;
     return true;
@@ -62,15 +67,16 @@ function padBoard(board, pad){
 
     for (let row = 0; row < numRows + pad * 2; row++){
         var newRow = new Array(numCols + pad * 2);
-        for (let col = 0; col < numCols + pad * 2; col++)
+        for (let col = 0; col < numCols + pad * 2; col++){
             newRow[col] = 0;
+        }
         paddedBoard.push(newRow);
     }
-    for (let row = 0; row < numRows; row++)
+    for (let row = 0; row < numRows; row++){
         for (let col = 0; col < numCols; col++)
             paddedBoard[row + pad][col + pad] = board[row][col];
-
-    return paddedBoard; 
+    }
+    return paddedBoard;
 }
 
 function createKernel(board, centerRow, centerCol, reach){
@@ -79,8 +85,9 @@ function createKernel(board, centerRow, centerCol, reach){
     var kernel = [];
     for (let col = centerCol - reach; col <= centerCol + reach; col++){
         var onesCount = 0;
-        for (let row = centerRow - reach; row <= centerRow + reach; row++)
+        for (let row = centerRow - reach; row <= centerRow + reach; row++){
             if (board[row][col] === 1) onesCount++;
+        }
         kernel.push(onesCount);
     }
     return kernel
@@ -101,18 +108,33 @@ function totalKernel(board, kernel, centerRow, centerCol){
 // Totals neighbor count for kernel - not counting center element
     var total = 0;
     for (let num of kernel) total += num;
-    if (board[centerRow][centerCol] === 1) total --;
+    if (board[centerRow][centerCol] === 1){
+        total --;
+    }
     return total;
+}
+
+function generateBoard(numRows, numCols){
+    var board = [];
+    for (let row = 0; row < numRows; row++){
+        var newRow = [];
+        for (let col = 0; col < numCols; col++){
+            newRow.push(Math.floor(Math.random() * 2));
+        }
+        board.push(newRow);
+    }
+    return board;
 }
 
 function displayBoard(board){
 // exports.displayBoard = function(board){
     for (const rowIdx of board.keys()){
         for (const colIdx of board[rowIdx].keys()){
-            if (colIdx < board[rowIdx].length - 1)
+            if (colIdx < board[rowIdx].length - 1){
                 process.stdout.write(board[rowIdx][colIdx] + '\t');
-            else
+            }else{
                 process.stdout.write(board[rowIdx][colIdx] + '\n');
+            }
         }
     }
     process.stdout.write('\n');
@@ -120,6 +142,18 @@ function displayBoard(board){
 
 var exportFunc = {
     getNextGen: getNextGen,
+    generateBoard: generateBoard,
     displayBoard: displayBoard
 }
-module.exports = exportFunc;
+
+// Help on module export to Node and browser from:
+// https://www.matteoagosti.com/blog/2013/02/24/writing-javascript-modules-for-both-browser-and-node/
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+    module.exports = exportFunc;
+}else if (typeof define === 'function' && define.amd){
+    define([], function() {
+        return exportFunc;
+    });
+}else{
+    window.gameOfLife = exportFunc;
+}
