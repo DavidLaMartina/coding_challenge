@@ -2,7 +2,7 @@
 
 To test output in console:
 
-node app.js <rows> <columns> <generations>
+node app.js *rows* *columns* *generations*
 
 For board sizes 10 x 10 and smaller, beginning and end board states will be displayed. For all board sizes, the total execution time will be displayed.
 Set generations to 1 to test output accuracy.
