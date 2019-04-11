@@ -1,3 +1,17 @@
+<h2>Implementation-Specific Notes - David LaMartina</h2>
+
+To test output in console:
+
+node app.js <rows> <columns> <generations>
+
+For board sizes 10 x 10 and smaller, beginning and end board states will be displayed. For all board sizes, the total execution time will be displayed.
+Set generations to 1 to test output accuracy.
+
+To view output in browser:
+
+Run http-server in root directory or open index.html.
+
+
 <h2>Congratulations for making it to the next stage of the i3logix interview!</h2>
 
 These tests are designed to give us a sense of your style as a programmer as well as your ability to solve problems.

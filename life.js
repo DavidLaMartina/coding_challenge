@@ -90,7 +90,7 @@ function createKernel(board, centerRow, centerCol, reach){
         }
         kernel.push(onesCount);
     }
-    return kernel
+    return kernel;
 }
 
 function advanceKernel(board, kernel, centerRow, centerCol, reach){
@@ -144,7 +144,7 @@ var exportFunc = {
     getNextGen: getNextGen,
     generateBoard: generateBoard,
     displayBoard: displayBoard
-}
+};
 
 // Help on module export to Node and browser from:
 // https://www.matteoagosti.com/blog/2013/02/24/writing-javascript-modules-for-both-browser-and-node/
