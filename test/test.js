@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const gameOfLife = require('../app.js');
+const gameOfLife = require('../life.js');
 
 describe('Application', () => {
 
