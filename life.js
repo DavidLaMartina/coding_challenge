@@ -47,8 +47,10 @@ function isBoardValid(board){
     if (!Array.isArray(board)){
       return false;
     }
-    if (board.some(function(row){
-        return (!Array.isArray(row) || row.length !== board[0].length);
+    for (let row = 0; row < board.length; row++){
+        if (!Array.isArray(row) || row.length !== board[0].length){
+            return false;
+        }
     }
     for (let row = 0; row < board.length; row++){
         for (let col = 0; col < row.length; col++){
@@ -57,7 +59,7 @@ function isBoardValid(board){
             }
         }
     }
-    // 
+    //
     // if (board.some( function(outEle){
     //     if (!Array.isArray(outEle) || outEle.length !== board[0].length){
     //         return true;
