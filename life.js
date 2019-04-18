@@ -48,12 +48,12 @@ function isBoardValid(board){
       return false;
     }
     for (let row = 0; row < board.length; row++){
-        if (!Array.isArray(row) || row.length !== board[0].length){
+        if (!Array.isArray(row) || board[row].length !== board[0].length){
             return false;
         }
     }
     for (let row = 0; row < board.length; row++){
-        for (let col = 0; col < row.length; col++){
+        for (let col = 0; col < board[row].length; col++){
             if (board[row][col] !== 1 && board[row][col] !== 0){
                 return false;
             }
