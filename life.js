@@ -47,18 +47,31 @@ function isBoardValid(board){
     if (!Array.isArray(board)){
       return false;
     }
-    for (let row = 0; row < board.length; row++){
-        if (!Array.isArray(board[row]) || board[row].length !== board[0].length){
-            return false;
-        }
+    if (!board.every( function(row){
+        return (Array.isArray(row) && row.length === board[0].length);
+    })){
+        return false;
     }
-    for (let row = 0; row < board.length; row++){
-        for (let col = 0; col < board[row].length; col++){
-            if (board[row][col] !== 1 && board[row][col] !== 0){
-                return false;
-            }
-        }
+    if (!board.every( function(row){
+        return row.some(function(element){
+            return (element !== 1 && element !== 0);
+        })
+    })){
+        return false;
     }
+    //
+    // for (let row = 0; row < board.length; row++){
+    //     if (!Array.isArray(board[row]) || board[row].length !== board[0].length){
+    //         return false;
+    //     }
+    // }
+    // for (let row = 0; row < board.length; row++){
+    //     for (let col = 0; col < board[row].length; col++){
+    //         if (board[row][col] !== 1 && board[row][col] !== 0){
+    //             return false;
+    //         }
+    //     }
+    // }
     //
     // if (board.some( function(outEle){
     //     if (!Array.isArray(outEle) || outEle.length !== board[0].length){
