@@ -48,7 +48,7 @@ function isBoardValid(board){
       return false;
     }
     for (let row = 0; row < board.length; row++){
-        if (!Array.isArray(row) || board[row].length !== board[0].length){
+        if (!Array.isArray(board[row]) || board[row].length !== board[0].length){
             return false;
         }
     }
