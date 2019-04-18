@@ -53,8 +53,8 @@ function isBoardValid(board){
         return false;
     }
     if (!board.every( function(row){
-        return row.some(function(element){
-            return (element !== 1 && element !== 0);
+        return row.every(function(element){
+            return (element === 1 || element === 0);
         })
     })){
         return false;
