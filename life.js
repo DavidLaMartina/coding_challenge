@@ -47,15 +47,27 @@ function isBoardValid(board){
     if (!Array.isArray(board)){
       return false;
     }
-    if (board.some( function(outEle){
-        if (!Array.isArray(outEle) || outEle.length !== board[0].length){
-            return true;
+    if (board.some(function(row){
+        return (!Array.isArray(row) || row.length !== board[0].length);
+    }
+    for (let row = 0; row < board.length; row++){
+        for (let col = 0; col < row.length; col++){
+            if (board[row][col] !== 1 && board[row][col] !== 0){
+                return false;
+            }
         }
-        if (outEle.some( inEle => inEle !== 0 && inEle !== 1 ? true : false)){
-            return true;
-        }
-    }))
-        return false;
+    }
+    // 
+    // if (board.some( function(outEle){
+    //     if (!Array.isArray(outEle) || outEle.length !== board[0].length){
+    //         return true;
+    //     }
+    //     if (outEle.some( inEle => inEle !== 0 && inEle !== 1 ? true : false)){
+    //         return true;
+    //     }
+    // })){
+    //     return false;
+    // }
     return true;
 }
 
